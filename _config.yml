@@ -13,3 +13,6 @@ collections:
   blogs:
     output: true
     permalink: /:collection/:name/
+
+
+  
