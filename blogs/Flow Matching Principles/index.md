@@ -54,7 +54,8 @@ Given a distribution $z_0 \sim p(z_0)$,
 
 and a series of invertible transformations: ${f_1, f_2, ..., f_k}$,
 
-we have $z_i = f_i(z_{i-1}), p(z_i) = p(z_{i-1})|\det \frac{\partial f_i}{\partial z_{i-1}} |^{-1}$ . After $K$ transformations, the target probability distribution can be obtained as follows:
+we have $z_i = f_i(z_{i-1}), p(z_i) = p(z_{i-1})|\det \frac{\partial f_i}{\partial z_{i-1}} |^{-1}$ 
+. After $K$ transformations, the target probability distribution can be obtained as follows:
 
 $$
 \log p(z_k) = \log p(z_0) - \Sigma_{i=1}^K \log |\det \frac{\partial f_i}{\partial z_{i-1}} |
