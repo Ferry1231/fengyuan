@@ -1,0 +1,15 @@
+theme: minima
+markdown: kramdown
+kramdown:
+  input: GFM
+  math_engine: mathjax
+  syntax_highlighter: rouge
+permalink: pretty 
+
+plugins:
+  - jekyll-toc
+
+collections:
+  blogs:
+    output: true
+    permalink: /:collection/:name/
