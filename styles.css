@@ -1,4 +1,4 @@
-/* Base Styles */
+Base Styles
 :root {
     --primary-color: #0066cc;
     --secondary-color: #f8f9fa;
@@ -1534,3 +1534,54 @@ footer {
 .visitors-section .section-title {
     margin: 0 auto 2rem;
 }
+
+/* Blog Section Styles */
+.blog-section {
+    padding: var(--section-spacing) 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.blog-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.blog-item {
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.blog-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.blog-item p {
+    color: var(--light-text);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.blog-item a {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 102, 204, 0.1);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.blog-item a:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
