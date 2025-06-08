@@ -1,3 +1,4 @@
+[toc]
 # Flow Matching Principles
 
 This article mainly introduces the background and mathematical principles of Flow Matching. As the author is from an artificial intelligence background rather than mathematics, this article focuses on learning and understanding Flow Matching from the perspective of a deep learning practitioner. Many descriptions may lack rigorous mathematical proofs and explanations, and I ask for readers' understanding.
