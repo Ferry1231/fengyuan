@@ -45,7 +45,7 @@ Consider excavating earth from a pit to form a mound. The goal is to minimize tr
 - Probability measures $\mu, \nu$ (source/target distributions, e.g., pit and mound)  
 - Cost function $c: X \times X \to [0, \infty]$  
 
-We seek a measure-preserving map $T: X \to X$ (where $T_\#\mu = \nu$) to minimize:
+We seek a measure-preserving map $T: X \to X$ (where $T_\# \mu = \nu$) to minimize:
 $$
 \min_{T: T_\# \mu = \nu} \int_X c(x, T(x)) \, d\mu(x)
 $$
