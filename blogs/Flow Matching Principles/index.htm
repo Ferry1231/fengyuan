@@ -166,8 +166,13 @@
         });
 
         // Fetch and render Markdown file
-        fetch('main.md')
-            .then(response => response.text())
+        fetch('./main.md')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.text();
+            })
             .then(text => {
                 document.getElementById('blog-content').innerHTML = md.render(text);
                 // Trigger MathJax to render LaTeX
@@ -175,7 +180,7 @@
             })
             .catch(error => {
                 console.error('Error loading Markdown file:', error);
-                document.getElementById('blog-content').innerHTML = '<p>Error loading content. Please check the file path.</p>';
+                document.getElementById('blog-content').innerHTML = '<p>Error loading content. Please check the file path or network. Error: ' + error.message + '</p>';
             });
     </script>
 </body>
