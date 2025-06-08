@@ -61,7 +61,7 @@ $$
 
 This is the solution for the target distribution.
 
-<!-- ![NFs Transformation Process](images/5v2-519b7d06728cb1c2dfff6153ef37b9b7.jpg) -->
+![NFs Transformation Process](images/5v2-519b7d06728cb1c2dfff6153ef37b9b7.jpg)
 
 **Main Drawbacks of Normalizing Flows**
 
@@ -91,7 +91,7 @@ $$
 
 The rate of change is related to the divergence of the vector field. This equation can be solved using numerical methods for ODEs and PDEs (e.g., Euler method, Runge-Kutta method, etc.).
 
-<!-- ![From the original paper: https://arxiv.org/abs/1806.07366](images/6v2-47d1a64181b4cad4420dd375fb9b495e.jpg) -->
+![From the original paper: https://arxiv.org/abs/1806.07366](images/6v2-47d1a64181b4cad4420dd375fb9b495e.jpg)
 
 ## 3. Flow Matching
 
@@ -107,4 +107,4 @@ $$
 
 where $x_t$ is an interpolated data point between $x_0$ and $x_T$, $v_{\theta}(x_t, t)$ is the learned velocity field, and $v(x_t, t)$ is the true interpolated velocity field, which can be derived from the interpolation path (details omitted here).
 
-<!-- ![](images/7v2-f68b4326ce380d8eec5d2f1427baa757.jpg) -->
+![](images/7v2-f68b4326ce380d8eec5d2f1427baa757.jpg)
