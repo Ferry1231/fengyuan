@@ -1,17 +1,11 @@
 {
-  "name": "ALEXANDER \"ALEX\" MORGAN 🍀",
-  "subtitle": "PhD@CS, WCU &nbsp;&nbsp;  BEng@EE, NTU<br><a href=\"#\">Center for AI and Smart Systems</a><br><a href=\"#\">Autonomous Systems and Connected Technologies Lab (ASCT)</a>",
+  "name": "Fengyuan Liu",
+  "subtitle": "Undergraduate student@Data Science, USTC<br>",
   "socialLinks": [
     {
       "type": "email",
-      "url": "mailto:alex.morgan@example.com",
+      "url": "liuferry708@gmail.com",
       "icon": "<i class=\"fas fa-envelope\"></i>"
-    },
-    {
-      "type": "wechat",
-      "url": "assets/wechat.jpg",
-      "icon": "<i class=\"fab fa-weixin\"></i>",
-      "target": "_blank"
     },
     {
       "type": "googleScholar",
