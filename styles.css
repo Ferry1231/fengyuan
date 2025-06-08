@@ -1,4 +1,4 @@
-Base Styles
+/* Base Styles */
 :root {
     --primary-color: #0066cc;
     --secondary-color: #f8f9fa;
@@ -1584,4 +1584,29 @@ footer {
     background-color: var(--primary-color);
     color: white;
 }
+
+/* Responsive Design for Blog */
+@media (max-width: 768px) {
+    .blog-list {
+        grid-template-columns: 1fr;
+    }
+    .blog-page {
+        padding: 3rem 15px;
+    }
+    .blog-page h1 {
+        font-size: 2rem;
+    }
+    .blog-page h2 {
+        font-size: 1.5rem;
+    }
+    .blog-page h3 {
+        font-size: 1.2rem;
+    }
+    .blog-page p, .blog-page li {
+        font-size: 1rem;
+    }
+}
+
+
+
 
