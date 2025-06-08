@@ -6,7 +6,6 @@ collection: blogs
 mathjax: true
 ---
 
-[toc]
 
 <head>
     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
@@ -20,10 +19,6 @@ mathjax: true
     </script>
 </head>
 
-作者：Cugtyt
-链接：https://zhuanlan.zhihu.com/p/36302775
-来源：知乎
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 # Flow Matching Principles
 
@@ -59,7 +54,7 @@ Given a distribution $z_0 \sim p(z_0)$,
 
 and a series of invertible transformations: ${f_1, f_2, ..., f_k}$,
 
-we have $z_i = f_i(z_{i-1}), p(z_i) = p(z_{i-1})|\det \frac{\partial f_i}{\partial z_{i-1}} |^{-1}$. After $K$ transformations, the target probability distribution can be obtained as follows:
+we have $z_i = f_i(z_{i-1}), p(z_i) = p(z_{i-1})|\det \frac{\partial f_i}{\partial z_{i-1}} |^{-1}$ . After $K$ transformations, the target probability distribution can be obtained as follows:
 
 $$
 \log p(z_k) = \log p(z_0) - \Sigma_{i=1}^K \log |\det \frac{\partial f_i}{\partial z_{i-1}} |
