@@ -1,0 +1,5 @@
+.btn {
+  &[href*="github.com"] {
+    display: none !important;
+  }
+}

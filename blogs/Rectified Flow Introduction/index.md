@@ -37,10 +37,10 @@ The goal of generative models is to learn a mapping from a known distribution (e
 Below is the problem background introduced in the paper—**The Transport Mapping Problem**:  
 
 Given two distributions:  
-`!$X_0 \sim \pi_0, X_1 \sim \pi_1$`,  
-find a transport mapping `!$T: \mathbb{R}^d \to \mathbb{R}^d$` (an optimal or near-optimal mapping, corresponding to optimal transport) such that when `!$Z_0 \sim \pi_0$`, `!$Z_1 := T(Z_0) \sim \pi_1$`. The pair `!$(Z_0, Z_1)$` is called a **coupling** of `!$\pi_0$` and `!$\pi_1$`.  
+$X_0 \sim \pi_0, X_1 \sim \pi_1$,  
+find a transport mapping $T: \mathbb{R}^d \to \mathbb{R}^d$ (an optimal or near-optimal mapping, corresponding to optimal transport) such that when $Z_0 \sim \pi_0$, $Z_1 := T(Z_0) \sim \pi_1$. The pair $(Z_0, Z_1)$ is called a **coupling** of $\pi_0$ and $\pi_1$.  
 
-In the field of generative models, `!$\pi_0$` is typically considered a noise distribution, and `!$\pi_1$` is the target image distribution. A classic example is the noise-adding process in diffusion models (e.g., VP, VE, sub-VP, etc.). Generative models such as GANs, VAEs, and DDPMs all seek an implicitly defined mapping `!$T$` that allows the noise distribution to "flow" naturally and efficiently to the target image distribution, as modeled by ODEs. From the perspective of optimal transport, a good mapping should achieve high generation quality (perfectly mapping each sample point to the target distribution) and high sampling efficiency (avoiding detours). Rectified Flow focuses on the latter, aiming to make the evolution paths between sample points as straight as possible to naturally improve efficiency.  
+In the field of generative models, $\pi_0$ is typically considered a noise distribution, and $\pi_1$ is the target image distribution. A classic example is the noise-adding process in diffusion models (e.g., VP, VE, sub-VP, etc.). Generative models such as GANs, VAEs, and DDPMs all seek an implicitly defined mapping $T$ that allows the noise distribution to "flow" naturally and efficiently to the target image distribution, as modeled by ODEs. From the perspective of optimal transport, a good mapping should achieve high generation quality (perfectly mapping each sample point to the target distribution) and high sampling efficiency (avoiding detours). Rectified Flow focuses on the latter, aiming to make the evolution paths between sample points as straight as possible to naturally improve efficiency.  
 
 ### 0.2 Prerequisites  
 
@@ -54,21 +54,21 @@ For prerequisites on flows, flow-based models, and flow-matching, refer to this 
 
 ### 1.1 Modeling Idea  
 
-Given distributions `!$X_0 \sim \pi_0, X_1 \sim \pi_1$`, the evolution process over time `!$t \in [0, 1]$` can be modeled with the following ODE:  
+Given distributions $X_0 \sim \pi_0, X_1 \sim \pi_1$, the evolution process over time $t \in [0, 1]$ can be modeled with the following ODE:  
 
-`!$ d Z_t = v(Z_t, t)\,dt \\$`  
+$ d Z_t = v(Z_t, t)\,dt \\$  
 
-Here, Rectified Flow aims to make the drift term `!$v$` drive data points from `!$\pi_0$` to `!$\pi_1$` with a "velocity" as close as possible to `!$(X_1 - X_0)$`. The optimization objective is:  
+Here, Rectified Flow aims to make the drift term $v$ drive data points from $\pi_0$ to $\pi_1$ with a "velocity" as close as possible to $(X_1 - X_0)$. The optimization objective is:  
 
-`!$\min_v \int_0^1 E[||(X_1 - X_0) - v(X_t, t)||^2] dt \\$`,  
+$\min_v \int_0^1 E[||(X_1 - X_0) - v(X_t, t)||^2] dt \\$,  
 
-where `!$X_t = t X_1 + (1 - t) X_0$` is the linear interpolation between `!$X_0$` and `!$X_1$`, and it clearly satisfies `!$d X_t = (X_1 - X_0) dt$`. This means the velocity field `!$v(X_t, t)$` should approximate `!$(X_1 - X_0)$` as closely as possible. Ideally, the ODE should follow a straight path at constant speed. However, in practical scenarios like high-dimensional data learning, perfectly straight ODE paths are rare. Thus, Rectified Flow's goal is to approximate straight paths—i.e., find shorter evolution paths.  
+where $X_t = t X_1 + (1 - t) X_0$ is the linear interpolation between $X_0$ and $X_1$, and it clearly satisfies $d X_t = (X_1 - X_0) dt$. This means the velocity field $v(X_t, t)$ should approximate $(X_1 - X_0)$ as closely as possible. Ideally, the ODE should follow a straight path at constant speed. However, in practical scenarios like high-dimensional data learning, perfectly straight ODE paths are rare. Thus, Rectified Flow's goal is to approximate straight paths—i.e., find shorter evolution paths.  
 
 ### 1.2 Path Non-Intersection Theorem (Picard–Lindelöf Theorem)  
 
-For an ODE defined as `!$d Z_t = v(Z_t, t)\,dt$`, Rectified Flow assumes the solution exists and is unique. This implies that different paths (from different initial points) cannot intersect at any time. If probability paths from different initial points were to intersect, it would mean the same initial point could evolve into different trajectories, leading to multiple solutions—a contradiction.  
+For an ODE defined as $d Z_t = v(Z_t, t)\,dt$, Rectified Flow assumes the solution exists and is unique. This implies that different paths (from different initial points) cannot intersect at any time. If probability paths from different initial points were to intersect, it would mean the same initial point could evolve into different trajectories, leading to multiple solutions—a contradiction.  
 
-Rectified Flow uses ODE methods to re-couple sample pairs, constructing non-intersecting evolution paths. If linear interpolation builds roads between the initial and target distributions, Rectified Flow acts as a traffic management system ensuring these roads never cross. In other words, it directly constructs deterministic point pairs `!$(Z_0, Z_1)$`, bypassing the need to consider how to connect `!$X_0$` and `!$X_1$`, thereby improving efficiency.  
+Rectified Flow uses ODE methods to re-couple sample pairs, constructing non-intersecting evolution paths. If linear interpolation builds roads between the initial and target distributions, Rectified Flow acts as a traffic management system ensuring these roads never cross. In other words, it directly constructs deterministic point pairs $(Z_0, Z_1)$, bypassing the need to consider how to connect $X_0$ and $X_1$, thereby improving efficiency.  
 
 ![Re-coupling in Rectified Flow](images/3v2-5d5d12e43546d86b7c3806da6daa51de.jpg)  
 
@@ -82,23 +82,23 @@ The pseudocode from the paper is presented directly here:
 
 ### 2.1 Marginal Preservation Property  
 
-Let `!$Z_t$` be the sequence generated by Rectified Flow and `!$X_t$` be the sequence generated by linear interpolation. At any time `!$t$`, the marginal distributions of `!$Z_t$` and `!$X_t$` are identical. This is visually demonstrated in the paper's graphical proof, showing that the inflow and outflow of data points for `!$Z_t$` and `!$X_t$` are equal at any time:  
+Let $Z_t$ be the sequence generated by Rectified Flow and $X_t$ be the sequence generated by linear interpolation. At any time $t$, the marginal distributions of $Z_t$ and $X_t$ are identical. This is visually demonstrated in the paper's graphical proof, showing that the inflow and outflow of data points for $Z_t$ and $X_t$ are equal at any time:  
 
 ![Graphical proof from the paper](images/5v2-319f0206aa8fc83a5eba64aa7a10e087.jpg)  
 
-Thus, it can be proven that at any time `!$t$`, their marginal distributions are identical, i.e., `!$Law(Z_t) = Law(X_t)$`.  
+Thus, it can be proven that at any time $t$, their marginal distributions are identical, i.e., $Law(Z_t) = Law(X_t)$.  
 
 This ensures the data becomes **causal** and simulatable, meaning ODEs or other methods can be used for solving. The ultimate goal is to achieve the same target distribution, and this method preserves marginal distributions, fulfilling the objective of learning distributions.  
 
 ### 2.2 Reducing Transport Cost  
 
-In optimal transport, transforming one distribution into another incurs a cost (imagine digging a hole in the ground and piling the dirt into a mound—the effort required is the cost). Lower costs naturally correspond to better transport methods, i.e., better distribution transformation approaches. In Rectified Flow, the generated point pairs `!$(Z_0, Z_1)$` have a lower average cost than the original (non-causal) point pairs `!$(X_0, X_1)$`. Mathematically:  
+In optimal transport, transforming one distribution into another incurs a cost (imagine digging a hole in the ground and piling the dirt into a mound—the effort required is the cost). Lower costs naturally correspond to better transport methods, i.e., better distribution transformation approaches. In Rectified Flow, the generated point pairs $(Z_0, Z_1)$ have a lower average cost than the original (non-causal) point pairs $(X_0, X_1)$. Mathematically:  
 
-`!$E[c(Z_0, Z_1)] ≤ E[c(X_0, X_1)]\\$`,  
+$E[c(Z_0, Z_1)] ≤ E[c(X_0, X_1)]\\$,  
 
-where `!$c$` is a convex transport cost (e.g., L1 loss, L2 loss). The paper provides a proof of the above inequality using Jensen's inequality.  
+where $c$ is a convex transport cost (e.g., L1 loss, L2 loss). The paper provides a proof of the above inequality using Jensen's inequality.  
 
-![Graphical proof from the paper for c = || · ||](images/6v2-c1ef6a4f1f04c173d4ddbaf6ba9b0c94.jpg)  
+<!-- ![Graphical proof from the paper for c = || · ||](images/6v2-c1ef6a4f1f04c173d4ddbaf6ba9b0c94.jpg)   -->
 
 An interesting observation is that Rectified Flow's optimization objective (the above inequality) is a **Pareto optimization problem**, i.e., an optimization of the average loss over all point pairs rather than a single point pair. Because Rectified Flow creates deterministic point pairs, optimizing for a single pair's transport cost might increase the cost for other pairs. Thus, it must balance the overall cost to achieve a globally optimal solution. In contrast, other generative models like VAEs and GANs assume conditional independence between data points and optimize for single-sample losses rather than **pairwise relationships**.  
 
@@ -110,17 +110,17 @@ This is the highlight of the paper: Why are the paths straight? If the initial p
 
 First, observe the Reflow iteration method:  
 
-`!$Z^{K+1} = RectFlow(Z^K_0, Z^K_1) \\$`.  
+$Z^{K+1} = RectFlow(Z^K_0, Z^K_1) \\$.  
 
-The point pairs `!$(Z^K_0, Z^K_1)$` undergo Reflow iterations to produce new sequences `!$[Z^{K+1}_0, ..., Z^{K+1}_t, ..., Z^{K+1}_1]$`. In other words, each iteration aims to find point pairs with straighter paths rather than straightening the existing paths between point pairs!  
+The point pairs $(Z^K_0, Z^K_1)$ undergo Reflow iterations to produce new sequences $[Z^{K+1}_0, ..., Z^{K+1}_t, ..., Z^{K+1}_1]$. In other words, each iteration aims to find point pairs with straighter paths rather than straightening the existing paths between point pairs!  
 
 Unfortunately, perfectly straight paths are rare, but we can make paths as straight as possible. The authors propose a metric to quantify path "straightness":  
 
-`!$S(Z) = \int_0^1 \mathbb{E} [||(Z_1 - Z_0) - \dot Z_t||^2] dt\\$`.  
+$S(Z) = \int_0^1 \mathbb{E} [||(Z_1 - Z_0) - \dot Z_t||^2] dt\\$.  
 
 The closer this value is to 0, the straighter the path. The paper also provides the relationship between iteration count and straightness:  
 
-`!$\min_{k \in {0, 1, ..., K}} S(Z^k) ≤ \frac {\mathbb{E}[||X_1 - X_0||^2] } {K} \\$`.  
+$\min_{k \in {0, 1, ..., K}} S(Z^k) ≤ \frac {\mathbb{E}[||X_1 - X_0||^2] } {K} \\$.  
 
 ![Relationship between iteration count and "straightness"](images/7v2-9665ef2fe69277e0bc60416f2a9a1d29.jpg)  
 
@@ -130,7 +130,7 @@ This shows that, theoretically, a finite number of iterations can approximate st
 
 Intuitively, straight paths are shorter, and after multiple Reflow iterations, single-step Euler sampling can be employed:  
 
-`!$Z_1 = Z_0 + v(z_0, 0)$`,  
+$Z_1 = Z_0 + v(z_0, 0)$,  
 
 which significantly improves sampling efficiency.  
 
@@ -138,31 +138,31 @@ which significantly improves sampling efficiency.
 
 ### 3.1 A Unified Framework from the Rectified Flow Perspective  
 
-In many cases, ODE modeling does not use linear interpolation (i.e., the interpolation coefficients are not linear functions of `!$t$`). For example, DDPM's VE (variance-exploding), VP (variance-preserving), and sub-VP noise-adding methods are nonlinear. However, certain nonlinear processes, such as probability flow ODEs and DDIM, can still be modeled using Rectified Flow ideas:  
+In many cases, ODE modeling does not use linear interpolation (i.e., the interpolation coefficients are not linear functions of $t$). For example, DDPM's VE (variance-exploding), VP (variance-preserving), and sub-VP noise-adding methods are nonlinear. However, certain nonlinear processes, such as probability flow ODEs and DDIM, can still be modeled using Rectified Flow ideas:  
 
-Let `!$X = \{X_t, t \in [0, 1] \}$` be a time-differentiable sequence, with the ODE:  
+Let $X = \{X_t, t \in [0, 1] \}$ be a time-differentiable sequence, with the ODE:  
 
-`!$d Z_t = v^X(Z_t, t) dt \\$`,  
+$d Z_t = v^X(Z_t, t) dt \\$,  
 
-where `!$Z_0 = X_0$` and `!$v^X(Z_t, t) = \mathbb{E} [\dot X_t]$`. The optimization objective is:  
+where $Z_0 = X_0$ and $v^X(Z_t, t) = \mathbb{E} [\dot X_t]$. The optimization objective is:  
 
-`!$\min_v \int_0^1 E[w_t||v^X(X_t, t) - \dot X_t||^2] dt \\$`.  
+$\min_v \int_0^1 E[w_t||v^X(X_t, t) - \dot X_t||^2] dt \\$.  
 
-Here, `!$\dot X_t$` represents the evolution velocity at time `!$t$`, and the goal remains to learn the true velocity field.  
+Here, $\dot X_t$ represents the evolution velocity at time $t$, and the goal remains to learn the true velocity field.  
 
-In nonlinear cases, Property 1 (marginal preservation) still holds, but Rectified Flow cannot guarantee that the point pairs `!$(Z_0, Z_1)$` found will have lower transport costs (note that this paper focuses on linear interpolation). Nor can it find point pairs with nearly straight paths.  
+In nonlinear cases, Property 1 (marginal preservation) still holds, but Rectified Flow cannot guarantee that the point pairs $(Z_0, Z_1)$ found will have lower transport costs (note that this paper focuses on linear interpolation). Nor can it find point pairs with nearly straight paths.  
 
 ### 3.2 Probability Flow ODE and DDIM  
 
 In diffusion models, ODE solving corresponds to a faster and more direct mode of SDE solving. The three classic probability flow ODEs correspond to three SDEs: VE (variance-exploding) SDE, VP (variance-preserving) SDE, and sub-VP SDE. Among these, VP ODE can be considered equivalent to DDIM.  
 
-Given `!$X_0 \sim \pi_0, X_1 \sim \pi_1$`, the probability flow ODE can be written as:  
+Given $X_0 \sim \pi_0, X_1 \sim \pi_1$, the probability flow ODE can be written as:  
 
-`!$X_t = \alpha_t X_1 + \beta_t \epsilon \\$`,  
+$X_t = \alpha_t X_1 + \beta_t \epsilon \\$,  
 
-where `!$\epsilon$` is standard Gaussian noise. Different choices of `!$\alpha_t, \beta_t$` represent different noise-adding methods, i.e., different ways of selecting time `!$t$`. Since this process does not satisfy `!$\alpha_1 = 1, \beta_t = 0$`, we set `!$X_0 = \alpha_0 X_1 + \beta_0 \epsilon$`.  
+where $\epsilon$ is standard Gaussian noise. Different choices of $\alpha_t, \beta_t$ represent different noise-adding methods, i.e., different ways of selecting time $t$. Since this process does not satisfy $\alpha_1 = 1, \beta_t = 0$, we set $X_0 = \alpha_0 X_1 + \beta_0 \epsilon$.  
 
-Thus, noise-adding methods need not be derived from SDE forms. Probability flow ODEs can freely choose noise-adding methods, such as linear interpolation. From the Rectified Flow perspective, different initial distributions `!$\pi_0$` can also be selected, which has **significant implications for generative modeling, numerical optimization, and computational efficiency**.  
+Thus, noise-adding methods need not be derived from SDE forms. Probability flow ODEs can freely choose noise-adding methods, such as linear interpolation. From the Rectified Flow perspective, different initial distributions $\pi_0$ can also be selected, which has **significant implications for generative modeling, numerical optimization, and computational efficiency**.  
 
 ![Comparison of different noise-adding strategies](images/8v2-e0b3221870968ecf79bfc08386b769e4.jpg)  
 
