@@ -1,7 +1,7 @@
 theme: jekyll-theme-cayman
 markdown: kramdown
 kramdown:
-  input: GFM
+  input: kramdown
   math_engine: mathjax
   syntax_highlighter: rouge
 permalink: pretty 
