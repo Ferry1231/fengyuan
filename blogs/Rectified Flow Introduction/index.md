@@ -56,7 +56,7 @@ For prerequisites on flows, flow-based models, and flow-matching, refer to this 
 
 Given distributions $X_0 \sim \pi_0, X_1 \sim \pi_1$, the evolution process over time $t \in [0, 1]$ can be modeled with the following ODE:  
 
-$ d Z_t = v(Z_t, t)\,dt \\$  
+$d Z_t = v(Z_t, t)\,dt$
 
 Here, Rectified Flow aims to make the drift term $v$ drive data points from $\pi_0$ to $\pi_1$ with a "velocity" as close as possible to $(X_1 - X_0)$. The optimization objective is:  
 
@@ -68,7 +68,8 @@ where $X_t = t X_1 + (1 - t) X_0$ is the linear interpolation between $X_0$ and 
 
 For an ODE defined as $d Z_t = v(Z_t, t)\,dt$, Rectified Flow assumes the solution exists and is unique. This implies that different paths (from different initial points) cannot intersect at any time. If probability paths from different initial points were to intersect, it would mean the same initial point could evolve into different trajectories, leading to multiple solutions—a contradiction.  
 
-Rectified Flow uses ODE methods to re-couple sample pairs, constructing non-intersecting evolution paths. If linear interpolation builds roads between the initial and target distributions, Rectified Flow acts as a traffic management system ensuring these roads never cross. In other words, it directly constructs deterministic point pairs $(Z_0, Z_1)$, bypassing the need to consider how to connect $X_0$ and $X_1$, thereby improving efficiency.  
+Rectified Flow uses ODE methods to re-couple sample pairs, constructing non-intersecting evolution paths. If linear interpolation builds roads between the initial and target distributions, Rectified Flow acts as a traffic management system ensuring these roads never cross. In other words, it directly constructs deterministic point pairs $(Z_0, Z_1)$
+, bypassing the need to consider how to connect $X_0$ and $X_1$, thereby improving efficiency.  
 
 ![Re-coupling in Rectified Flow](images/3v2-5d5d12e43546d86b7c3806da6daa51de.jpg)  
 
@@ -92,9 +93,10 @@ This ensures the data becomes **causal** and simulatable, meaning ODEs or other 
 
 ### 2.2 Reducing Transport Cost  
 
-In optimal transport, transforming one distribution into another incurs a cost (imagine digging a hole in the ground and piling the dirt into a mound—the effort required is the cost). Lower costs naturally correspond to better transport methods, i.e., better distribution transformation approaches. In Rectified Flow, the generated point pairs $(Z_0, Z_1)$ have a lower average cost than the original (non-causal) point pairs $(X_0, X_1)$. Mathematically:  
+In optimal transport, transforming one distribution into another incurs a cost (imagine digging a hole in the ground and piling the dirt into a mound—the effort required is the cost). Lower costs naturally correspond to better transport methods, i.e., better distribution transformation approaches. In Rectified Flow, the generated point pairs $(Z_0, Z_1)$
+have a lower average cost than the original (non-causal) point pairs $(X_0, X_1)$. Mathematically:  
 
-$E[c(Z_0, Z_1)] ≤ E[c(X_0, X_1)]\\$,  
+$E[c(Z_0, Z_1)] ≤ E[c(X_0, X_1)]$,  
 
 where $c$ is a convex transport cost (e.g., L1 loss, L2 loss). The paper provides a proof of the above inequality using Jensen's inequality.  
 
@@ -112,7 +114,8 @@ First, observe the Reflow iteration method:
 
 $Z^{K+1} = RectFlow(Z^K_0, Z^K_1) \\$.  
 
-The point pairs $(Z^K_0, Z^K_1)$ undergo Reflow iterations to produce new sequences $[Z^{K+1}_0, ..., Z^{K+1}_t, ..., Z^{K+1}_1]$. In other words, each iteration aims to find point pairs with straighter paths rather than straightening the existing paths between point pairs!  
+The point pairs $(Z^K_0, Z^K_1)$
+undergo Reflow iterations to produce new sequences $[Z^{K+1}_0, ..., Z^{K+1}_t, ..., Z^{K+1}_1]$. In other words, each iteration aims to find point pairs with straighter paths rather than straightening the existing paths between point pairs!  
 
 Unfortunately, perfectly straight paths are rare, but we can make paths as straight as possible. The authors propose a metric to quantify path "straightness":  
 
@@ -165,5 +168,3 @@ where $\epsilon$ is standard Gaussian noise. Different choices of $\alpha_t, \be
 Thus, noise-adding methods need not be derived from SDE forms. Probability flow ODEs can freely choose noise-adding methods, such as linear interpolation. From the Rectified Flow perspective, different initial distributions $\pi_0$ can also be selected, which has **significant implications for generative modeling, numerical optimization, and computational efficiency**.  
 
 ![Comparison of different noise-adding strategies](images/8v2-e0b3221870968ecf79bfc08386b769e4.jpg)  
-
-Original article: [Rectified Flow Interpretation](https://zhuanlan.zhihu.com/p/26766739762)
