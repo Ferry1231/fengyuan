@@ -60,7 +60,9 @@ $d Z_t = v(Z_t, t)\,dt$
 
 Here, Rectified Flow aims to make the drift term $v$ drive data points from $\pi_0$ to $\pi_1$ with a "velocity" as close as possible to $(X_1 - X_0)$. The optimization objective is:  
 
-$\min_v \int_0^1 E[||(X_1 - X_0) - v(X_t, t)||^2] dt$,  
+$$
+\min_v \int_0^1 E[||(X_1 - X_0) - v(X_t, t)||^2] dt
+$$,  
 
 where $X_t = t X_1 + (1 - t) X_0$ is the linear interpolation between $X_0$ and $X_1$, and it clearly satisfies $d X_t = (X_1 - X_0) dt$. This means the velocity field $v(X_t, t)$ should approximate $(X_1 - X_0)$ as closely as possible. Ideally, the ODE should follow a straight path at constant speed. However, in practical scenarios like high-dimensional data learning, perfectly straight ODE paths are rare. Thus, Rectified Flow's goal is to approximate straight paths—i.e., find shorter evolution paths.  
 
@@ -119,11 +121,15 @@ undergo Reflow iterations to produce new sequences $[Z^{K+1}_0, ..., Z^{K+1}_t, 
 
 Unfortunately, perfectly straight paths are rare, but we can make paths as straight as possible. The authors propose a metric to quantify path "straightness":  
 
-$S(Z) = \int_0^1 \mathbb{E} [||(Z_1 - Z_0) - \dot Z_t||^2] dt$.  
+$$
+S(Z) = \int_0^1 \mathbb{E} [||(Z_1 - Z_0) - \dot Z_t||^2] dt
+$$  
 
 The closer this value is to 0, the straighter the path. The paper also provides the relationship between iteration count and straightness:  
 
-$\min_{k \in {0, 1, ..., K}} S(Z^k) ≤ \frac {\mathbb{E}[||X_1 - X_0||^2] } {K}$.  
+$$
+\min_{k \in {0, 1, ..., K}} S(Z^k) ≤ \frac {\mathbb{E}[||X_1 - X_0||^2] } {K}
+$$  
 
 ![Relationship between iteration count and "straightness"](images/7v2-9665ef2fe69277e0bc60416f2a9a1d29.jpg)  
 
@@ -149,7 +155,9 @@ $d Z_t = v^X(Z_t, t) dt$,
 
 where $Z_0 = X_0$ and $v^X(Z_t, t) = \mathbb{E} [\dot X_t]$. The optimization objective is:  
 
-$\min_v \int_0^1 E[w_t||v^X(X_t, t) - \dot X_t||^2] dt$.  
+$$
+\min_v \int_0^1 E[w_t||v^X(X_t, t) - \dot X_t||^2] dt
+$$  
 
 Here, $\dot X_t$ represents the evolution velocity at time $t$, and the goal remains to learn the true velocity field.  
 
