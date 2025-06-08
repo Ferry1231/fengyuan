@@ -43,7 +43,7 @@ Optimal Transport (OT) theory originated from Gaspard Monge's 18th-century trans
 Consider excavating earth from a pit to form a mound. The goal is to minimize transportation cost (e.g., physical effort). Mathematically, given:
 - A metric space $(X, d)$  
 - Probability measures $\mu, \nu$ (source/target distributions, e.g., pit and mound)  
-- Cost function $c: X \times X \to [0, \infty)$  
+- Cost function $c: X \times X \to [0, \infty]$  
 
 We seek a measure-preserving map $T: X \to X$ (where $T_\#\mu = \nu$) to minimize:
 $$
