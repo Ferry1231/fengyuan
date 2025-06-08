@@ -14,33 +14,9 @@
       "target": "_blank"
     },
     {
-      "type": "linkedin",
-      "url": "#",
-      "icon": "<i class=\"fab fa-linkedin\"></i>",
-      "target": "_blank"
-    },
-    {
       "type": "github",
-      "url": "#",
+      "url": "https://github.com/Ferry1231",
       "icon": "<i class=\"fab fa-github\"></i>",
-      "target": "_blank"
-    },
-    {
-      "type": "instagram",
-      "url": "#",
-      "icon": "<i class=\"fab fa-instagram\"></i>",
-      "target": "_blank"
-    },
-    {
-      "type": "dblp",
-      "url": "#",
-      "icon": "<img src=\"assets/dblp.svg\" alt=\"DBLP\" class=\"icon-svg\">",
-      "target": "_blank"
-    },
-    {
-      "type": "researchgate",
-      "url": "#",
-      "icon": "<i class=\"fab fa-researchgate\"></i>",
       "target": "_blank"
     }
   ],
