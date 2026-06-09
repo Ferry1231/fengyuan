@@ -1,10 +1,9 @@
 [
   {
-    "number": 1,
-    "title": "BEYOND MODEL-CENTRIC: COLLABORATIVE DATA OPTIMIZATION FOR REUSING AND SHARING",
-    "authors": "Xinyi Shang#, Peng Sun#, Fengyuan Liu, Tao Lin*",
+    "title": "DynaCF: Mitigating Shortcut Learning in Reward Models via Dynamic Counterfactual Sensitivity",
+    "authors": "Fengyuan Liu#, Yongliang Miao#, Zirui He, Yanguang Liu, Fei Sun, Mengnan Du*",
     "type": "preprint",
-    "isFirstAuthor": false,
+    "isFirstAuthor": true,
     "tags": [
       {
         "text": "Preprint",
@@ -13,7 +12,51 @@
       {
         "text": "PDF",
         "class": "code-tag",
-        "link": "https://arxiv.org/abs/2505.14117"
+        "link": "https://arxiv.org/pdf/2606.09043"
+      }
+    ]
+  },
+  {
+    "title": "RASFT: Rollout-Adaptive Supervised Fine-Tuning for Reasoning",
+    "authors": "Yongliang Miao#, Fengyuan Liu#, Wei Shi, Yanguang Liu, Fei Sun, Na Zou, Mengnan Du*",
+    "type": "preprint",
+    "isFirstAuthor": true,
+    "tags": [
+      {
+        "text": "Preprint",
+        "class": "preprint-tag"
+      },
+      {
+        "text": "PDF",
+        "class": "code-tag",
+        "link": "https://arxiv.org/pdf/2606.07006"
+      }
+    ]
+  },
+  {
+    "title": "Auto-Rubric as Reward: From Implicit Preferences to Explicit Multimodal Generative Criteria",
+    "authors": "Juanxi Tian#, Fengyuan Liu#, Jiaming Han, Yilei Jiang, Yongliang Wu, Yesheng Liu, Haodong Li, Furong Xu, Wanhua Li*",
+    "type": "preprint",
+    "isFirstAuthor": true,
+    "tags": [
+      {
+        "text": "Preprint",
+        "class": "preprint-tag"
+      },
+      {
+        "text": "PDF",
+        "class": "code-tag",
+        "link": "https://arxiv.org/pdf/2605.08354"
+      },
+      {
+        "text": "code",
+        "class": "code-tag",
+        "link": "https://github.com/OpenEnvision/AutoRubric-as-Reward"
+      },
+      {
+        "text": "website",
+        "class": "code-tag",
+        "link": "https://openenvision.github.io/AutoRubric-as-Reward/"
       }
     ]
   }

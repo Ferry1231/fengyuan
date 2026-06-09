@@ -211,7 +211,7 @@ function loadPublications() {
     fetch(publicationsJsonPath)
         .then(response => response.json())
         .then(publications => {
-            publications.forEach(pub => {
+            publications.forEach((pub, index) => {
                 const pubElement = document.createElement('div');
                 const classes = ['publication', pub.type];
                 if (pub.isFirstAuthor) classes.push('first-author');
@@ -220,7 +220,7 @@ function loadPublications() {
                 // Create publication number
                 const numberElement = document.createElement('span');
                 numberElement.className = 'pub-number';
-                numberElement.textContent = pub.number;
+                numberElement.textContent = index + 1;
                 
                 // Create publication content container
                 const contentElement = document.createElement('div');
@@ -436,4 +436,4 @@ function setupLinkObserver() {
     
     // Start observing the target node for configured mutations
     observer.observe(targetNode, config);
-} 
+}

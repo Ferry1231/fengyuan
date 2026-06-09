@@ -144,10 +144,11 @@ Key components to customize:
 
 The `data/publications.json` file organizes your publications with metadata for filtering:
 
+Publication numbers are generated automatically from the order of items in this file.
+
 ```json
 [
   {
-    "number": 1,
     "title": "Sustainable Materials for High-Efficiency Solar Energy Storage Systems",
     "authors": "<strong><u>Alexander \"Alex\" Morgan</u></strong>, Jennifer Lee, Michael Taylor, Sarah Johnson, David Chen, Thomas Wright, Robert Williams",
     "type": "preprint",
@@ -169,7 +170,6 @@ The `data/publications.json` file organizes your publications with metadata for 
 ```
 
 For each publication, you can specify:
-- `number`: Sequential identifier for ordering
 - `title`: Publication title
 - `authors`: Author list with HTML formatting to highlight your name
 - `type`: "preprint" or "accepted"
@@ -251,7 +251,6 @@ To update your publications:
 
 1. Edit `data/publications.json` following the structure outlined above
 2. For new publications:
-   - Assign a unique number (typically sequential)
    - Format author names with your name highlighted using HTML tags
    - Set the correct publication type and first author status
    - Add relevant tags with links to resources
@@ -522,4 +521,3 @@ For older browsers, some advanced CSS features may not display correctly, but co
 This project is available under the MIT License. You are free to use, modify, and distribute this template for both personal and academic purposes.
 
 When using this template, attribution is appreciated but not required.
-
